@@ -20,16 +20,19 @@ function Creaciones() {
   }, []);
 
   const handleLike = (projectId) => {
-    if (!likedProjects.includes(projectId)) {
-      const updatedLikedProjects = [...likedProjects, projectId];
-      setLikedProjects(updatedLikedProjects);
-      localStorage.setItem('likedProjects', JSON.stringify(updatedLikedProjects));
-      console.log('likedProjects', likedProjects);
+    if (sesionIniciada) {
+      // Verifica si la sesión está iniciada
+      if (!likedProjects.includes(projectId)) {
+        const updatedLikedProjects = [...likedProjects, projectId];
+        setLikedProjects(updatedLikedProjects);
+        localStorage.setItem('likedProjects', JSON.stringify(updatedLikedProjects));
+      } else {
+        const updatedLikedProjects = likedProjects.filter((id) => id !== projectId);
+        setLikedProjects(updatedLikedProjects);
+        localStorage.setItem('likedProjects', JSON.stringify(updatedLikedProjects));
+      }
     } else {
-      const updatedLikedProjects = likedProjects.filter((id) => id !== projectId);
-      setLikedProjects(updatedLikedProjects);
-      localStorage.setItem('likedProjects', JSON.stringify(updatedLikedProjects));
-      console.log('saslikedProjects', likedProjects);
+      alert('Debes iniciar sesión para marcar proyectos como favoritos.');
     }
   };
 
@@ -49,9 +52,13 @@ function Creaciones() {
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>{item.description}</Card.Text>
-                <Link to={`/DetallesProyecto/${item.id}`}>
-                  <Button variant="primary">Ver Mas</Button>
+                <Link to={{
+                  pathname: `/DetallesProyecto/${item.id}`,
+                  state: { project: item },
+                }}>
+                  <Button variant="primary">Ver Más</Button>
                 </Link>
+
                 {likedProjects.includes(item.id) ? (
                   <HeartFill onClick={() => handleLike(item.id)} fill="red" />
                 ) : (

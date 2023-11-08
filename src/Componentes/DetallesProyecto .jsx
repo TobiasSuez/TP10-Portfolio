@@ -3,14 +3,15 @@ import { useParams } from 'react-router-dom';
 import { ProjectContext } from '../Context/AuthContext';
 
 function DetallesProyecto() {
-  const { projectId } = useParams();
   const { projects } = useContext(ProjectContext);
-  const project = projects.find((item) => String(item.id) === String(projectId));
-  console.log(project);
+  const { id } = useParams();
+
+  // Encuentra el proyecto correspondiente al projectId en el contexto
+  const project = projects.find((item) => String(item.id) === String(id));
 
   return (
     <div>
-      <h2>Detalles del Proyecto</h2>
+      <h2>Detalles del Proyecto:</h2>
       {project && (
         <div>
           <h3>{project.title}</h3>
@@ -18,7 +19,6 @@ function DetallesProyecto() {
           <img src={project.imageUrl} alt={project.title} />
           <p>Date: {project.date}</p>
           <a href={project.url}>URL</a>
-          
         </div>
       )}
     </div>

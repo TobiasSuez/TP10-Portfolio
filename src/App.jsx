@@ -6,6 +6,7 @@ import MisCeaciones from "./Componentes/MisCreaciones";
 import Favoritos from "./Componentes/Favoritos";
 import InicioSesion from "./Componentes/InicioSesion";
 import ContenidoProtegido from "./Componentes/ContenidoProtegido";
+import DetallesProyecto from "./Componentes/DetallesProyecto ";
 
 function App() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(false);
@@ -34,6 +35,8 @@ function App() {
           <Route path="/MasInfo" element={<MasInfo />} />
           <Route path="/MisCreaciones" element={<MisCeaciones />} />
           <Route path="/Favoritos" element={<Favoritos />} />
+          <Route path= '/DetallesProyecto/:id' element={<DetallesProyecto />} /> 
+
           <Route
             path="/login"
             element={<InicioSesion iniciarSesion={iniciarSesion} />}

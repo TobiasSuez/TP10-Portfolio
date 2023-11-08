@@ -14,7 +14,6 @@ function Creaciones() {
 
   useEffect(() => {
     const storedProjects = JSON.parse(localStorage.getItem('likedProjects'));
-    console.log('storedProjects', storedProjects);
     if (storedProjects) {
       setLikedProjects(storedProjects);
     }
@@ -34,15 +33,12 @@ function Creaciones() {
     }
   };
 
-  // Resto del código para mostrar los proyectos, similar al ejemplo anterior
-
-
   return (
     <Container>
       <Row>
         <Col sm={4}></Col>
         <Col sm={4}>
-          <h2>Todas mis creaciones</h2>
+          <h2>Creaciones destacadas</h2>
         </Col>
       </Row>
       <Row>
@@ -53,8 +49,12 @@ function Creaciones() {
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>{item.description}</Card.Text>
-                <Link to={`/DetallesProyecto/${item.id}`}>
-                  <Button variant="primary">Ver Mas</Button>
+                <Link to={{
+                  pathname: `/DetallesProyecto/${item.id}`,
+                  state: { project: item },
+                  
+                }}> 
+                  <Button variant="primary">Ver Más</Button>
                 </Link>
                 {likedProjects.includes(item.id) ? (
                   <HeartFill onClick={() => handleLike(item.id)} fill="red" />
@@ -71,3 +71,4 @@ function Creaciones() {
 }
 
 export default Creaciones;
+  

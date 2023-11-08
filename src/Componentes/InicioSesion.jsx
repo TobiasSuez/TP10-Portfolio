@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ProjectContext } from '../Context/AuthContext';
 
-const InicioSesion = ({ iniciarSesion }) => {
+const InicioSesion = () => {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const navigate = useNavigate();
 
+  // Accede al contexto de autenticación
+  const { iniciarSesion } = useContext(ProjectContext);
+
   const handleInicioSesion = () => {
-    // Aquí podrías realizar la lógica de autenticación
-    // Por ahora, solo comprobamos si los campos no están vacíos
+    // Realiza la lógica de autenticación aquí
     if (usuario && contrasena) {
-      iniciarSesion(); // Simula el inicio de sesión exitoso
-      navigate('/', { replace: true }); // Redirige al usuario a la página principal
+      iniciarSesion(); // Utiliza la función del contexto para iniciar sesión
+      navigate('/Home', { replace: true }); // Redirige al usuario a la página principal
     } else {
       alert('Por favor, ingresa un usuario y contraseña válidos.');
     }
